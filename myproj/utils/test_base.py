@@ -151,7 +151,7 @@ class UploadMixin(MyTestCase):
         data['file'] = uploaded_chunk
 
         response = self.client.post(
-            '/api/v1/upload/' % VERSION, data, format='multipart'
+            '/api/v1/uploads/' % VERSION, data, format='multipart'
         )
         json_response = response.json()
         LOG.info(json_response)
