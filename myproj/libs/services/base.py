@@ -52,7 +52,7 @@ class BaseService:
         Run service
 
         Parameter: self (object)
-        Return: (object) instance of domain configuration
+        Return: (object) instance
         """
         serializer = self.serializer(
             self.get_queryset(),
