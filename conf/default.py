@@ -30,6 +30,9 @@ from .templates import *
 # Logging
 from .logging import *
 
+# Swagger
+from .swagger import *
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -38,7 +41,7 @@ from .logging import *
 SECRET_KEY = '4iy-p_t_0yd7yi4*lo_8q6ll)ztav98_ia8=9br7jq+^i&%c5('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
