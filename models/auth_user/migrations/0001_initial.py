@@ -2,7 +2,19 @@
 
 import django.contrib.auth.models
 from django.db import migrations
+from django.core.management import call_command
 
+def load_initial_user(apps, schema_editor):
+    """
+    load initial user
+    """
+    User = apps.get_model("auth_user", "User")
+    user, _ = User.objects.get_or_create(
+        email='testuser@venn.bio',
+        username='testuser')
+    user.set_password('1234')
+    user.is_superuser = True
+    user.is_staff = True
 
 class Migration(migrations.Migration):
 
@@ -27,4 +39,5 @@ class Migration(migrations.Migration):
                 ('objects', django.contrib.auth.models.UserManager()),
             ],
         ),
+        migrations.RunPython(load_initial_user),
     ]
