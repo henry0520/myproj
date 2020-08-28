@@ -22,7 +22,7 @@ to login via api endpoint
 
 For batch endpoint make sure the payload is json
 
-For upload enpoint - (POST method) /api/v1/uploads/ make sure the payload is form-data
+For upload enpoint - (POST method) /api/v1/uploads/ make sure the payload is in form-data
 
 test credential
 username: testuser
