@@ -7,7 +7,3 @@ WORKDIR /opt/myproj/
 COPY ./ /opt/myproj/
 RUN pip install --upgrade pip
 RUN pip install -r requires/base.pip
-
-COPY ./docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
