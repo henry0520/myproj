@@ -113,6 +113,14 @@ class ResumableUploadSerializer(serializers.Serializer):
         style={'input_type': 'file'}
     )
 
+    def validate_batch_id(self, batch_id):
+        """
+        validate batch id
+        """
+        if not self.batch_instance:
+            raise serializers.ValidationError('Batch uuid does not exist')
+        return batch_id
+
     @property
     def batch_instance(self):
         """
@@ -230,7 +238,7 @@ class ResumableUploadSerializer(serializers.Serializer):
                 upload_instance.content_type = upload_instance.c_type
                 upload_instance.valid = True
                 upload_instance.save()
-                notification_task.uploaded.apply_async([upload_instance])
+                notification_task.uploaded.apply_async([upload_instance, request.get_host()])
                 return upload_instance, True
             return upload_instance, False
 

@@ -1,0 +1,48 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=myproj
+      - POSTGRES_USER=myproj
+      - POSTGRES_PASSWORD=myproj
+  myproj:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/opt/myproj
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - rabbitmq
+
+  celeryd:
+    build: .
+    command: celery worker --workdir /opt/myproj/ -A myproj --autoscale=10,3 -E --pidfile=/tmp/celeryd.pid -l DEBUG
+    restart: always
+    volumes:
+      - .:/opt/myproj
+    links:
+      - rabbitmq
+    depends_on:
+      - db
+      - rabbitmq
+    environment:
+      - C_FORCE_ROOT="true"
+
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+    ulimits:
+      nofile: 51200
+    environment:
+      - RABBITMQ_DEFAULT_USER=myproj
+      - RABBITMQ_DEFAULT_PASS=myproj
+      - RABBITMQ_DEFAULT_VHOST=/myproj
+    deploy:
+      mode: replicated
+      replicas: 10
