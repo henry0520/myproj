@@ -2,7 +2,7 @@
 
 import django.contrib.auth.models
 from django.db import migrations
-from django.core.management import call_command
+from django.contrib.auth.hashers import make_password
 
 def load_initial_user(apps, schema_editor):
     """
@@ -12,9 +12,10 @@ def load_initial_user(apps, schema_editor):
     user, _ = User.objects.get_or_create(
         email='testuser@venn.bio',
         username='testuser')
-    user.set_password('1234')
     user.is_superuser = True
     user.is_staff = True
+    user.password = make_password('1234')
+    user.save()
 
 class Migration(migrations.Migration):
 
