@@ -15,7 +15,7 @@ from ..decorators import task
 LOG = logger.get_logger(__name__)
 
 @task
-def uploaded(instance, **kwargs):
+def uploaded(instance, url, **kwargs):
     """
     uploaded
     """
@@ -26,14 +26,14 @@ def uploaded(instance, **kwargs):
 
         Someone sent you a file(s).
 
-        To download the file click on - https://localtest.com/api/v1/batches/%s
+        To download the file click on - http://%s/api/v1/batches/%s
 
         Best Regards,
 
         InterVenn
-    """ % instance.batch.uuid
+    """ % (url, instance.batch.uuid)
 
     send_mail(
        subject, message, 'developers@intervenn.com', 
-       ['henz.jmedina@gmail.com'], fail_silently=False)
+       ['henz.jmedina@gmail.com', 'lzulaybar@venn.bio', 'mervin@venn.bio'], fail_silently=False)
     LOG.info('Email sent')
