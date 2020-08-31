@@ -19,19 +19,20 @@ def uploaded(instance, url, **kwargs):
     """
     uploaded
     """
-    LOG.info(instance.content_type)
     subject = 'InterVenn file uploaded'
+    download_link = "http://{0}/{1}".format(url, instance.batch.uuid)
     message = """
         Hi There,
 
         Someone sent you a file(s).
 
-        To download the file click on - http://%s/api/v1/batches/%s
+        Time uploaded: %s
+        Download link: %s
 
         Best Regards,
 
         InterVenn
-    """ % (url, instance.batch.uuid)
+    """ % (instance.date_created.strftime('%Y-%m-%d %H:%M:%S'), download_link)
 
     send_mail(
        subject, message, 'developers@intervenn.com', 

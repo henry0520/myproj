@@ -16,6 +16,7 @@ services:
     depends_on:
       - db
       - rabbitmq
+      - celeryd
 
   celeryd:
     build: .
