@@ -20,7 +20,7 @@ def uploaded(instance, url, **kwargs):
     uploaded
     """
     subject = 'InterVenn file uploaded'
-    download_link = "http://{0}/{1}/".format(url, download_url)
+    download_link = "http://{0}/{1}/".format(url, instance.download_url)
     message = """
         Hi There,
 
