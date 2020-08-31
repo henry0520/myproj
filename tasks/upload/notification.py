@@ -20,7 +20,7 @@ def uploaded(instance, url, **kwargs):
     uploaded
     """
     subject = 'InterVenn file uploaded'
-    download_link = "http://{0}/{1}".format(url, instance.batch.uuid)
+    download_link = "http://{0}/api/v1/uploads/{1}/download/".format(url, instance.batch.uuid)
     message = """
         Hi There,
 
